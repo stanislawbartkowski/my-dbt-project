@@ -62,9 +62,20 @@ profiles.yml    Postgres connection profile (reads credentials from env vars)
 .venv/bin/dbt run     # build all models
 .venv/bin/dbt test    # run tests
 ```
+Run them all
+```bash
+dbt build
+```
 
 Models are materialized as:
 - `raw` and `staging` → views
 - `analytical` → tables
 
 Each layer is written to its own schema (`raw`, `staging`, `analytics`) as configured in [dbt_project.yml](dbt_project.yml).
+
+## Useful commands
+
+```bash
+dbt run --select raw_orders
+
+dbt show --inline "select * from {{ ref('stg_customers') }} where customer_id = 5"
