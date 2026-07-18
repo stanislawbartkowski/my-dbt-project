@@ -79,3 +79,12 @@ Each layer is written to its own schema (`raw`, `staging`, `analytics`) as confi
 dbt run --select raw_orders
 
 dbt show --inline "select * from {{ ref('stg_customers') }} where customer_id = 5"
+
+## Create Postgresql user for testing
+```sql
+create user dbt with password 'secret';
+create database marketdata;
+alter database marketdata owner to dbt;
+```
+
+```
