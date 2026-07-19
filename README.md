@@ -58,9 +58,13 @@ profiles.yml    Postgres connection profile (reads credentials from env vars)
 ## Common commands
 
 ```bash
-.venv/bin/dbt seed    # load CSV seeds (customers, orders)
-.venv/bin/dbt run     # build all models
-.venv/bin/dbt test    # run tests
+source .venv/bin/activate
+source .env
+
+dbt debug   # test connection
+dbt seed    # load CSV seeds (customers, orders)
+dbt run     # build all models
+dbt test    # run tests
 ```
 Run them all
 ```bash
@@ -76,8 +80,9 @@ Each layer is written to its own schema (`raw`, `staging`, `analytics`) as confi
 ## Useful commands
 
 ```bash
-dbt run --select raw_orders
+dbt run --select raw_orders   # build raw_orders model 
 
+dbt show --select raw_orders  # execute select query on model raw_order without running any updates
 dbt show --inline "select * from {{ ref('stg_customers') }} where customer_id = 5"
 ```
 
